@@ -1,11 +1,12 @@
 defmodule TestCase do
-  defstruct [:test_method, :was_run]
+  defstruct [:module, :was_run, :was_set_up]
 
-  def create(function) do
-    %TestCase{test_method: function}
+  def create(module) do
+    %TestCase{module: module}
   end
 
   def run(test) do
-    test.test_method.(test)
+    test = apply(test.module, :set_up, [test])
+    apply(test.module, :test, [test])
   end
 end
