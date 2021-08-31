@@ -5,8 +5,7 @@ defmodule TestCase do
     %TestCase{module: module, method: method}
   end
 
-  def run(test_case) do
-    test_result = %TestResult{}
+  def run(test_case, test_result \\ %TestResult{}) do
     test_result = TestResult.test_started(test_result)
     test_case = apply(test_case.module, :set_up, [test_case])
 

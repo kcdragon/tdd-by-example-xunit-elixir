@@ -26,4 +26,16 @@ defmodule TestCaseTest do
     test_result = TestResult.test_failed(test_result)
     assert TestResult.summary(test_result) == "1 run, 1 failed"
   end
+
+  test "suite" do
+    test_suite = %TestSuite{}
+    test_suite = TestSuite.add_test_case(test_suite, TestCase.create(WasRun, :test_method))
+    test_suite = TestSuite.add_test_case(test_suite, TestCase.create(WasRun, :test_broken_method))
+    test_result = TestSuite.run(test_suite)
+    assert TestResult.summary(test_result) == "2 run, 1 failed"
+  end
+
+  # TODO: Invoke tearDown even if the test method fails
+  # TODO: Catch and report setUp errors
+  # TODO: Create TestSuite from a TestCase class
 end
