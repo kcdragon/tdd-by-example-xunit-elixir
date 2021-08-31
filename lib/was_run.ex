@@ -1,9 +1,13 @@
 defmodule WasRun do
   def set_up(test) do
-    %{test | was_run: nil, was_set_up: 1}
+    %{test | log: "set_up "}
   end
 
   def test(test) do
-    %{test | was_run: 1}
+    %{test | log: "#{test.log}test "}
+  end
+
+  def tear_down(test) do
+    %{test | log: "#{test.log}tear_down "}
   end
 end

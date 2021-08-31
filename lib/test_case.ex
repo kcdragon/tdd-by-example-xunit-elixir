@@ -1,5 +1,5 @@
 defmodule TestCase do
-  defstruct [:module, :was_run, :was_set_up]
+  defstruct [:module, :log]
 
   def create(module) do
     %TestCase{module: module}
@@ -7,6 +7,7 @@ defmodule TestCase do
 
   def run(test) do
     test = apply(test.module, :set_up, [test])
-    apply(test.module, :test, [test])
+    test = apply(test.module, :test, [test])
+    apply(test.module, :tear_down, [test])
   end
 end
