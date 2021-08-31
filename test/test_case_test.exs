@@ -19,4 +19,11 @@ defmodule TestCaseTest do
     test_result = TestCase.run(test_case)
     assert TestResult.summary(test_result) == "1 run, 1 failed"
   end
+
+  test "failed result formatting" do
+    test_result = %TestResult{}
+    test_result = TestResult.test_started(test_result)
+    test_result = TestResult.test_failed(test_result)
+    assert TestResult.summary(test_result) == "1 run, 1 failed"
+  end
 end

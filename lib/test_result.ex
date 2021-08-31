@@ -1,11 +1,15 @@
 defmodule TestResult do
-  defstruct [run_count: 0, summary: "1 run, 0 failed", test_case: nil]
+  defstruct [run_count: 0, failed_count: 0, test_case: nil]
 
-  def test_started(result) do
-    %{result | run_count: result.run_count + 1}
+  def test_started(test_result) do
+    %{test_result | run_count: test_result.run_count + 1}
   end
 
-  def summary(result) do
-    "#{result.run_count} run, 0 failed"
+  def test_failed(test_result) do
+    %{test_result | failed_count: test_result.failed_count + 1}
+  end
+
+  def summary(test_result) do
+    "#{test_result.run_count} run, #{test_result.failed_count} failed"
   end
 end
